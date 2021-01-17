@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.ExtendedSowsestruslnfoDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.ExtendedSowsestruslnfo">
+    <id column="ActionID" jdbcType="INTEGER" property="actionid" />
+    <result column="AnimalNumber" jdbcType="VARCHAR" property="animalnumber" />
+    <result column="BehaviorStartTime" jdbcType="VARCHAR" property="behaviorstarttime" />
+    <result column="BehaviorEndTime" jdbcType="VARCHAR" property="behaviorendtime" />
+    <result column="BehaviorDescription" jdbcType="VARCHAR" property="behaviordescription" />
+    <result column="TreatmentPlan" jdbcType="VARCHAR" property="treatmentplan" />
+    <result column="TreatmentResult" jdbcType="VARCHAR" property="treatmentresult" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ActionID, AnimalNumber, BehaviorStartTime, BehaviorEndTime, BehaviorDescription, 
+    TreatmentPlan, TreatmentResult
+  </sql>
+  <select id="selectByAnimalNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group13_sowestruslnfo
+    where AnimalNumber = #{animalNumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from 2020rg_group13_sowestruslnfo
+    where ActionID = #{actionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="ActionID" keyProperty="actionid" parameterType="org.lah.WelfareFeeding.domain.ExtendedSowsestruslnfo" useGeneratedKeys="true">
+    insert into 2020rg_group13_sowestruslnfo (AnimalNumber, BehaviorStartTime, 
+      BehaviorEndTime, BehaviorDescription, TreatmentPlan, 
+      TreatmentResult)
+    values (#{animalnumber,jdbcType=VARCHAR}, #{behaviorstarttime,jdbcType=VARCHAR}, 
+      #{behaviorendtime,jdbcType=VARCHAR}, #{behaviordescription,jdbcType=VARCHAR}, #{treatmentplan,jdbcType=VARCHAR}, 
+      #{treatmentresult,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="ActionID" keyProperty="actionid" parameterType="org.lah.WelfareFeeding.domain.ExtendedSowsestruslnfo" useGeneratedKeys="true">
+    insert into 2020rg_group13_sowestruslnfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        AnimalNumber,
+      </if>
+      <if test="behaviorstarttime != null">
+        BehaviorStartTime,
+      </if>
+      <if test="behaviorendtime != null">
+        BehaviorEndTime,
+      </if>
+      <if test="behaviordescription != null">
+        BehaviorDescription,
+      </if>
+      <if test="treatmentplan != null">
+        TreatmentPlan,
+      </if>
+      <if test="treatmentresult != null">
+        TreatmentResult,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        #{animalnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviorstarttime != null">
+        #{behaviorstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviorendtime != null">
+        #{behaviorendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviordescription != null">
+        #{behaviordescription,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentplan != null">
+        #{treatmentplan,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentresult != null">
+        #{treatmentresult,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.ExtendedSowsestruslnfo">
+    update 2020rg_group13_sowestruslnfo
+    <set>
+      <if test="animalnumber != null">
+        AnimalNumber = #{animalnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviorstarttime != null">
+        BehaviorStartTime = #{behaviorstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviorendtime != null">
+        BehaviorEndTime = #{behaviorendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="behaviordescription != null">
+        BehaviorDescription = #{behaviordescription,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentplan != null">
+        TreatmentPlan = #{treatmentplan,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentresult != null">
+        TreatmentResult = #{treatmentresult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ActionID = #{actionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.ExtendedSowsestruslnfo">
+    update 2020rg_group13_sowestruslnfo
+    set AnimalNumber = #{animalnumber,jdbcType=VARCHAR},
+      BehaviorStartTime = #{behaviorstarttime,jdbcType=VARCHAR},
+      BehaviorEndTime = #{behaviorendtime,jdbcType=VARCHAR},
+      BehaviorDescription = #{behaviordescription,jdbcType=VARCHAR},
+      TreatmentPlan = #{treatmentplan,jdbcType=VARCHAR},
+      TreatmentResult = #{treatmentresult,jdbcType=VARCHAR}
+    where ActionID = #{actionid,jdbcType=INTEGER}
+  </update>
+</mapper>

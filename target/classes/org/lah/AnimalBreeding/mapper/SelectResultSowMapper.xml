@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.SelectResultSowMapper" >
+
+    <!--分页查询母猪档案-->
+    <select id="getSelectResultSow" parameterType="org.lah.AnimalBreeding.domain.SelectResultSow" resultType="org.lah.AnimalBreeding.domain.SelectResultSow">
+        select AnimalNumber,PigAge,HealthCondition,LifeCondition from 2020rg_group13_sowrecordlnfo
+        <where>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test=" PigAge!=null">
+                PigAge=#{PigAge}
+            </if>
+            and IfBreedSelectObserved='是'
+            and IfBreedSelect='否'
+        </where>
+        ORDER BY AnimalNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询母猪档案数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalNumber) from 2020rg_group13_sowrecordlnfo
+        <where>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test=" PigAge!=null">
+                PigAge=#{PigAge}
+            </if>
+            and IfBreedSelectObserved='是'
+            and IfBreedSelect='否'
+        </where>
+        ORDER BY  AnimalNumber asc
+    </select>
+
+    <!--通过ID修改母猪档案信息-->
+    <update id="updateSelectResultSow" parameterType="String" >
+        update 2020rg_group13_sowrecordlnfo
+        <set>
+            IfBreedSelectObserved='否',
+            IfBreedSelect='是'
+        </set>
+        where AnimalNumber = #{AnimalNumber}
+    </update>
+
+    <!--根据ID查询母猪档案信息-->
+    <select id="findSelectResultSowById" resultType="org.lah.AnimalBreeding.domain.SelectResultSow" >
+       select * from 2020rg_group13_sowrecordlnfo where AnimalNumber=#{AnimalNumber} and IfBreedSelectObserved='是' and IfBreedSelect='否'
+    </select>
+
+    <!--查询所有母猪档案信息-->
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.SelectResultSow">
+        select * from 2020rg_group13_sowrecordlnfo where IfBreedSelectObserved='是' and IfBreedSelect='否';
+    </select>
+
+</mapper>

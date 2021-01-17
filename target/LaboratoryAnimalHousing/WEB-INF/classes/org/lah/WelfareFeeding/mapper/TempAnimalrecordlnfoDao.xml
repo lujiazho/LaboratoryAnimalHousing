@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.TempAnimalrecordlnfoDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo">
+    <id column="AnimalNumber" jdbcType="VARCHAR" property="animalnumber" />
+    <result column="PigAge" jdbcType="INTEGER" property="pigage" />
+    <result column="PigSex" jdbcType="VARCHAR" property="pigsex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AnimalNumber, PigAge, PigSex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group13_animalrecordlnfo
+    where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOrderByPrimaryKey" parameterType="java.lang.Integer"
+          resultType="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_animalrecordlnfo
+    order by AnimalNumber
+    limit #{limit,jdbcType=INTEGER} offset #{offset,jdbcType=INTEGER}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(1)
+    from `2020rg_group13_animalrecordlnfo`;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from 2020rg_group13_animalrecordlnfo
+    where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="AnimalNumber" keyProperty="animalnumber"
+          parameterType="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo" useGeneratedKeys="true">
+    insert into 2020rg_group13_animalrecordlnfo (PigAge, PigSex)
+    values (#{pigage,jdbcType=INTEGER}, #{pigsex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="AnimalNumber" keyProperty="animalnumber"
+          parameterType="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo" useGeneratedKeys="true">
+    insert into 2020rg_group13_animalrecordlnfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pigage != null">
+        PigAge,
+      </if>
+      <if test="pigsex != null">
+        PigSex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pigage != null">
+        #{pigage,jdbcType=INTEGER},
+      </if>
+      <if test="pigsex != null">
+        #{pigsex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo">
+    update 2020rg_group13_animalrecordlnfo
+    <set>
+      <if test="pigage != null">
+        PigAge = #{pigage,jdbcType=INTEGER},
+      </if>
+      <if test="pigsex != null">
+        PigSex = #{pigsex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.TempAnimalrecordlnfo">
+    update 2020rg_group13_animalrecordlnfo
+    set PigAge = #{pigage,jdbcType=INTEGER},
+      PigSex = #{pigsex,jdbcType=VARCHAR}
+    where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+  </update>
+</mapper>

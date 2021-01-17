@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.RoomMapper" >
+
+    <!--分页查询-->
+    <select id="getRoom" parameterType="org.lah.AnimalFeed.domain.Room" resultType="org.lah.AnimalFeed.domain.Room">
+        select * from 2020rg_group13_af_roomallocation
+        <where>
+            <if test="RoomNumber!=null and RoomNumber!=0">
+                and  RoomNumber = #{RoomNumber}
+            </if>
+            <if test="AnimalNumber!=null and AnimalNumber!=''">
+                and  AnimalNumber = #{AnimalNumber}
+            </if>
+        </where>
+        ORDER BY  RoomNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalNumber) from 2020rg_group13_af_roomallocation
+        <where>
+              <if test="RoomNumber!=null and RoomNumber!=0">
+                 and  RoomNumber = #{RoomNumber}
+               </if>
+              <if test="AnimalNumber!=null and AnimalNumber!=''">
+                  and  AnimalNumber = #{AnimalNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除信息-->
+    <delete id="deleteRoom" parameterType="String" >
+        delete from 2020rg_group13_af_roomallocation where AnimalNumber=#{AnimalNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addRoom" parameterType="org.lah.AnimalFeed.domain.Room" keyProperty="AnimalNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_roomallocation (RoomNumber,AnimalNumber,IfLeave, LeaveReason)
+        values(#{RoomNumber},#{AnimalNumber},#{IfLeave},#{LeaveReason})
+    </insert>
+
+
+    <select id="findRoomById"  parameterType="String" resultType="org.lah.AnimalFeed.domain.Room" >
+       select * from 2020rg_group13_af_roomallocation where AnimalNumber=#{AnimalNumber}
+    </select>
+    <!--修改信息-->
+    <update id="updateRoom" parameterType="org.lah.AnimalFeed.domain.Room">
+        update 2020rg_group13_af_roomallocation
+        <set>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber},
+            </if>
+            <if test="AnimalNumber!=null and AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber},
+            </if>
+            <if test="IfLeave !=null">
+                IfLeave=#{IfLeave},
+            </if>
+            <if test="LeaveReason !=null and LeaveReason !=''">
+                LeaveReason=#{LeaveReason},
+            </if>
+        </set>
+        where AnimalNumber = #{AnimalNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.Room">
+        select * from 2020rg_group13_af_roomallocation;
+    </select>
+
+</mapper>

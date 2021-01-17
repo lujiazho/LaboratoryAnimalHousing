@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.PaddingTestMapper" >
+
+    <!--分页查询-->
+    <select id="getPaddingTest" parameterType="org.lah.AnimalFeed.domain.PaddingTest" resultType="org.lah.AnimalFeed.domain.PaddingTest">
+        select * from 2020rg_group13_af_paddingtesting
+        <where>
+            <if test="PaddingTestNumber!=null and PaddingTestNumber!=0 ">
+                and  PaddingTestNumber = #{PaddingTestNumber}
+            </if>
+            <if test="PaddingGetNumber!=null and PaddingGetNumber!=0">
+                and  PaddingGetNumber = #{PaddingGetNumber}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  PaddingTestNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(PaddingTestNumber) from 2020rg_group13_af_paddingtesting
+        <where>
+              <if test="PaddingTestNumber!=null and PaddingTestNumber!=0 ">
+                 and  PaddingTestNumber = #{PaddingTestNumber}
+               </if>
+              <if test="PaddingGetNumber!=null and PaddingGetNumber!=0">
+                  and  PaddingGetNumber = #{PaddingGetNumber}
+              </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deletePaddingTest" parameterType="Integer" >
+        delete from 2020rg_group13_af_paddingtesting where PaddingTestNumber=#{PaddingTestNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addPaddingTest" parameterType="org.lah.AnimalFeed.domain.PaddingTest" keyProperty="PaddingTestNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_paddingtesting (PaddingGetNumber, IfPadStandard,PersonnelNumber,PaddingBacterialCount,PaddingColiformCount, AbnormalCondition)
+        values(#{PaddingGetNumber},#{IfPadStandard},#{PersonnelNumber},#{PaddingBacterialCount},#{PaddingColiformCount},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findPaddingTestById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.PaddingTest" >
+       select * from 2020rg_group13_af_paddingtesting where PaddingTestNumber=#{PaddingTestNumber}
+    </select>
+    <!--修改学生信息-->
+    <update id="updatePaddingTest" parameterType="org.lah.AnimalFeed.domain.PaddingTest">
+        update 2020rg_group13_af_paddingtesting
+        <set>
+            <if test="PaddingGetNumber!=null and PaddingGetNumber!=0">
+                PaddingGetNumber=#{PaddingGetNumber},
+            </if>
+            <if test="IfPadStandard !=null">
+                IfPadStandard=#{IfPadStandard},
+            </if>
+            <if test="PersonnelNumber !=null and PersonnelNumber !=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="PaddingBacterialCount!=null and PaddingBacterialCount!=0.0">
+                PaddingBacterialCount=#{PaddingBacterialCount},
+            </if>
+            <if test="PaddingColiformCount!=null and PaddingColiformCount!=0.0">
+                PaddingColiformCount=#{PaddingColiformCount},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where PaddingTestNumber = #{PaddingTestNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.PaddingTest">
+        select * from 2020rg_group13_af_paddingtesting;
+    </select>
+
+</mapper>

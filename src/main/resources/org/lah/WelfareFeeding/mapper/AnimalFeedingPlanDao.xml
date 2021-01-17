@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.AnimalFeedingPlanDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.AnimalFeedingPlan">
+    <id column="FeedingPlanNumber" jdbcType="CHAR" property="feedingplannumber" />
+    <result column="AnimalNumber" jdbcType="CHAR" property="animalnumber" />
+    <result column="FeedNumber" jdbcType="CHAR" property="feednumber" />
+    <result column="Staffing" jdbcType="CHAR" property="staffing" />
+    <result column="FeedDosage" jdbcType="FLOAT" property="feeddosage" />
+    <result column="WaterConsumption" jdbcType="FLOAT" property="waterconsumption" />
+    <result column="RecommendedVentilationTime" jdbcType="FLOAT" property="recommendedventilationtime" />
+    <result column="PaddingReplacingTime" jdbcType="FLOAT" property="paddingreplacingtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    FeedingPlanNumber, AnimalNumber, FeedNumber, Staffing, FeedDosage, WaterConsumption, 
+    RecommendedVentilationTime, PaddingReplacingTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_animal_feeding_plan
+    where FeedingPlanNumber = #{feedingplannumber,jdbcType=CHAR}
+  </select>
+  <select id="selectByAnimalNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_animal_feeding_plan
+    where AnimalNumber = #{animalnumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from 2020rg_group13_animal_feeding_plan
+    where FeedingPlanNumber = #{feedingplannumber,jdbcType=CHAR}
+  </delete>
+  <select id="insert" resultType="java.lang.String">
+    call `2020rg_group13_p_add_animal_feeding_plan`(#{animalnumber,jdbcType=CHAR},#{feednumber,jdbcType=CHAR}, #{staffing,jdbcType=CHAR},
+                                                    #{feeddosage,jdbcType=FLOAT}, #{waterconsumption,jdbcType=FLOAT},
+                                                    #{recommendedventilationtime,jdbcType=FLOAT},
+                                                    #{paddingreplacingtime,jdbcType=FLOAT})
+  </select>
+  <insert id="insertSelective" keyColumn="FeedingPlanNumber" keyProperty="feedingplannumber"
+          parameterType="org.lah.WelfareFeeding.domain.AnimalFeedingPlan" useGeneratedKeys="true">
+    insert into 2020rg_group13_animal_feeding_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        AnimalNumber,
+      </if>
+      <if test="feednumber != null">
+        FeedNumber,
+      </if>
+      <if test="staffing != null">
+        Staffing,
+      </if>
+      <if test="feeddosage != null">
+        FeedDosage,
+      </if>
+      <if test="waterconsumption != null">
+        WaterConsumption,
+      </if>
+      <if test="recommendedventilationtime != null">
+        RecommendedVentilationTime,
+      </if>
+      <if test="paddingreplacingtime != null">
+        PaddingReplacingTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="feednumber != null">
+        #{feednumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="feeddosage != null">
+        #{feeddosage,jdbcType=FLOAT},
+      </if>
+      <if test="waterconsumption != null">
+        #{waterconsumption,jdbcType=FLOAT},
+      </if>
+      <if test="recommendedventilationtime != null">
+        #{recommendedventilationtime,jdbcType=FLOAT},
+      </if>
+      <if test="paddingreplacingtime != null">
+        #{paddingreplacingtime,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.AnimalFeedingPlan">
+    update 2020rg_group13_animal_feeding_plan
+    <set>
+      <if test="animalnumber != null">
+        AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="feednumber != null">
+        FeedNumber = #{feednumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        Staffing = #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="feeddosage != null">
+        FeedDosage = #{feeddosage,jdbcType=FLOAT},
+      </if>
+      <if test="waterconsumption != null">
+        WaterConsumption = #{waterconsumption,jdbcType=FLOAT},
+      </if>
+      <if test="recommendedventilationtime != null">
+        RecommendedVentilationTime = #{recommendedventilationtime,jdbcType=FLOAT},
+      </if>
+      <if test="paddingreplacingtime != null">
+        PaddingReplacingTime = #{paddingreplacingtime,jdbcType=FLOAT},
+      </if>
+    </set>
+    where FeedingPlanNumber = #{feedingplannumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.AnimalFeedingPlan">
+    update 2020rg_group13_animal_feeding_plan
+    set AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      FeedNumber = #{feednumber,jdbcType=CHAR},
+      Staffing = #{staffing,jdbcType=CHAR},
+      FeedDosage = #{feeddosage,jdbcType=FLOAT},
+      WaterConsumption = #{waterconsumption,jdbcType=FLOAT},
+      RecommendedVentilationTime = #{recommendedventilationtime,jdbcType=FLOAT},
+      PaddingReplacingTime = #{paddingreplacingtime,jdbcType=FLOAT}
+    where FeedingPlanNumber = #{feedingplannumber,jdbcType=CHAR}
+  </update>
+</mapper>

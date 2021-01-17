@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 导头文件 -->
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- mybatis的核心配置文件 -->
+<configuration>
+	<!-- 配置日志的输出方式 -->
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+	<!-- 别名优化 -->
+	<typeAliases>
+		<package name="org.lah.*.domain"/>
+	</typeAliases>
+</configuration>

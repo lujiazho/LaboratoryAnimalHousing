@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.EnvironmentalStandardDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.EnvironmentalStandard">
+    <id column="EnvironmentalStandardsNumber" jdbcType="CHAR" property="environmentalstandardsnumber" />
+    <result column="AnimalNumber" jdbcType="CHAR" property="animalnumber" />
+    <result column="Staffing" jdbcType="CHAR" property="staffing" />
+    <result column="EstablishmentDate" jdbcType="DATE" property="establishmentdate" />
+    <result column="HumidityLowerLimit" jdbcType="FLOAT" property="humiditylowerlimit" />
+    <result column="TemperatureLowerLimit" jdbcType="FLOAT" property="temperaturelowerlimit" />
+    <result column="StaticPressureDifferenceLowerLimit" jdbcType="FLOAT" property="staticpressuredifferencelowerlimit" />
+    <result column="LightLowerLimit" jdbcType="FLOAT" property="lightlowerlimit" />
+    <result column="NoiseLowerLimit" jdbcType="FLOAT" property="noiselowerlimit" />
+    <result column="AirVolumeLowerLimit" jdbcType="FLOAT" property="airvolumelowerlimit" />
+    <result column="HumidityUpperLimit" jdbcType="FLOAT" property="humidityupperlimit" />
+    <result column="TemperatureUpperLimit" jdbcType="FLOAT" property="temperatureupperlimit" />
+    <result column="StaticPressureDifferenceUpperLimit" jdbcType="FLOAT" property="staticpressuredifferenceupperlimit" />
+    <result column="LightUpperLimit" jdbcType="FLOAT" property="lightupperlimit" />
+    <result column="NoiseUpperLimit" jdbcType="FLOAT" property="noiseupperlimit" />
+    <result column="AirVolumeUpperLimit" jdbcType="FLOAT" property="airvolumeupperlimit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EnvironmentalStandardsNumber, AnimalNumber, Staffing, EstablishmentDate, HumidityLowerLimit, 
+    TemperatureLowerLimit, StaticPressureDifferenceLowerLimit, LightLowerLimit, NoiseLowerLimit, 
+    AirVolumeLowerLimit, HumidityUpperLimit, TemperatureUpperLimit, StaticPressureDifferenceUpperLimit, 
+    LightUpperLimit, NoiseUpperLimit, AirVolumeUpperLimit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_environmental_standard
+    where EnvironmentalStandardsNumber = #{environmentalstandardsnumber,jdbcType=CHAR}
+  </select>
+  <select id="selectByAnimalNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_environmental_standard
+    where AnimalNumber = #{animalnumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from 2020rg_group13_environmental_standard
+    where EnvironmentalStandardsNumber = #{environmentalstandardsnumber,jdbcType=CHAR}
+  </delete>
+  <select id="insert" resultType="java.lang.String">
+    call 2020rg_group13_p_add_environmental_standard(#{animalnumber,jdbcType=CHAR},#{staffing,jdbcType=CHAR}, #{establishmentdate,jdbcType=DATE},
+                                                     #{humiditylowerlimit,jdbcType=FLOAT}, #{temperaturelowerlimit,jdbcType=FLOAT},
+                                                     #{staticpressuredifferencelowerlimit,jdbcType=FLOAT}, #{lightlowerlimit,jdbcType=FLOAT},
+                                                     #{noiselowerlimit,jdbcType=FLOAT}, #{airvolumelowerlimit,jdbcType=FLOAT},
+                                                     #{humidityupperlimit,jdbcType=FLOAT},
+                                                     #{temperatureupperlimit,jdbcType=FLOAT}, #{staticpressuredifferenceupperlimit,jdbcType=FLOAT},
+                                                     #{lightupperlimit,jdbcType=FLOAT}, #{noiseupperlimit,jdbcType=FLOAT}, #{airvolumeupperlimit,jdbcType=FLOAT})
+  </select>
+  <insert id="insertSelective" keyColumn="EnvironmentalStandardsNumber" keyProperty="environmentalstandardsnumber"
+          parameterType="org.lah.WelfareFeeding.domain.EnvironmentalStandard" useGeneratedKeys="true">
+    insert into 2020rg_group13_environmental_standard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        AnimalNumber,
+      </if>
+      <if test="staffing != null">
+        Staffing,
+      </if>
+      <if test="establishmentdate != null">
+        EstablishmentDate,
+      </if>
+      <if test="humiditylowerlimit != null">
+        HumidityLowerLimit,
+      </if>
+      <if test="temperaturelowerlimit != null">
+        TemperatureLowerLimit,
+      </if>
+      <if test="staticpressuredifferencelowerlimit != null">
+        StaticPressureDifferenceLowerLimit,
+      </if>
+      <if test="lightlowerlimit != null">
+        LightLowerLimit,
+      </if>
+      <if test="noiselowerlimit != null">
+        NoiseLowerLimit,
+      </if>
+      <if test="airvolumelowerlimit != null">
+        AirVolumeLowerLimit,
+      </if>
+      <if test="humidityupperlimit != null">
+        HumidityUpperLimit,
+      </if>
+      <if test="temperatureupperlimit != null">
+        TemperatureUpperLimit,
+      </if>
+      <if test="staticpressuredifferenceupperlimit != null">
+        StaticPressureDifferenceUpperLimit,
+      </if>
+      <if test="lightupperlimit != null">
+        LightUpperLimit,
+      </if>
+      <if test="noiseupperlimit != null">
+        NoiseUpperLimit,
+      </if>
+      <if test="airvolumeupperlimit != null">
+        AirVolumeUpperLimit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="establishmentdate != null">
+        #{establishmentdate,jdbcType=DATE},
+      </if>
+      <if test="humiditylowerlimit != null">
+        #{humiditylowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="temperaturelowerlimit != null">
+        #{temperaturelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="staticpressuredifferencelowerlimit != null">
+        #{staticpressuredifferencelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="lightlowerlimit != null">
+        #{lightlowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="noiselowerlimit != null">
+        #{noiselowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="airvolumelowerlimit != null">
+        #{airvolumelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="humidityupperlimit != null">
+        #{humidityupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="temperatureupperlimit != null">
+        #{temperatureupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="staticpressuredifferenceupperlimit != null">
+        #{staticpressuredifferenceupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="lightupperlimit != null">
+        #{lightupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="noiseupperlimit != null">
+        #{noiseupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="airvolumeupperlimit != null">
+        #{airvolumeupperlimit,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.EnvironmentalStandard">
+    update 2020rg_group13_environmental_standard
+    <set>
+      <if test="animalnumber != null">
+        AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        Staffing = #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="establishmentdate != null">
+        EstablishmentDate = #{establishmentdate,jdbcType=DATE},
+      </if>
+      <if test="humiditylowerlimit != null">
+        HumidityLowerLimit = #{humiditylowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="temperaturelowerlimit != null">
+        TemperatureLowerLimit = #{temperaturelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="staticpressuredifferencelowerlimit != null">
+        StaticPressureDifferenceLowerLimit = #{staticpressuredifferencelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="lightlowerlimit != null">
+        LightLowerLimit = #{lightlowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="noiselowerlimit != null">
+        NoiseLowerLimit = #{noiselowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="airvolumelowerlimit != null">
+        AirVolumeLowerLimit = #{airvolumelowerlimit,jdbcType=FLOAT},
+      </if>
+      <if test="humidityupperlimit != null">
+        HumidityUpperLimit = #{humidityupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="temperatureupperlimit != null">
+        TemperatureUpperLimit = #{temperatureupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="staticpressuredifferenceupperlimit != null">
+        StaticPressureDifferenceUpperLimit = #{staticpressuredifferenceupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="lightupperlimit != null">
+        LightUpperLimit = #{lightupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="noiseupperlimit != null">
+        NoiseUpperLimit = #{noiseupperlimit,jdbcType=FLOAT},
+      </if>
+      <if test="airvolumeupperlimit != null">
+        AirVolumeUpperLimit = #{airvolumeupperlimit,jdbcType=FLOAT},
+      </if>
+    </set>
+    where EnvironmentalStandardsNumber = #{environmentalstandardsnumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.EnvironmentalStandard">
+    update 2020rg_group13_environmental_standard
+    set AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      Staffing = #{staffing,jdbcType=CHAR},
+      EstablishmentDate = #{establishmentdate,jdbcType=DATE},
+      HumidityLowerLimit = #{humiditylowerlimit,jdbcType=FLOAT},
+      TemperatureLowerLimit = #{temperaturelowerlimit,jdbcType=FLOAT},
+      StaticPressureDifferenceLowerLimit = #{staticpressuredifferencelowerlimit,jdbcType=FLOAT},
+      LightLowerLimit = #{lightlowerlimit,jdbcType=FLOAT},
+      NoiseLowerLimit = #{noiselowerlimit,jdbcType=FLOAT},
+      AirVolumeLowerLimit = #{airvolumelowerlimit,jdbcType=FLOAT},
+      HumidityUpperLimit = #{humidityupperlimit,jdbcType=FLOAT},
+      TemperatureUpperLimit = #{temperatureupperlimit,jdbcType=FLOAT},
+      StaticPressureDifferenceUpperLimit = #{staticpressuredifferenceupperlimit,jdbcType=FLOAT},
+      LightUpperLimit = #{lightupperlimit,jdbcType=FLOAT},
+      NoiseUpperLimit = #{noiseupperlimit,jdbcType=FLOAT},
+      AirVolumeUpperLimit = #{airvolumeupperlimit,jdbcType=FLOAT}
+    where EnvironmentalStandardsNumber = #{environmentalstandardsnumber,jdbcType=CHAR}
+  </update>
+</mapper>

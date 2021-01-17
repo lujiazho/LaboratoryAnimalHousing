@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.WelfareFeedingTaskDao">
+    <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.WelfareFeedingTask">
+        <id column="AnimalNumber" jdbcType="VARCHAR" property="animalnumber"/>
+        <id column="MaintenanceStaff" jdbcType="CHAR" property="maintenancestaff"/>
+        <result column="Task" jdbcType="VARCHAR" property="task"/>
+        <result column="LastUpdated" jdbcType="DATE" property="lastupdated"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        AnimalNumber, MaintenanceStaff, Task, LastUpdated
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTaskKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from 2020rg_group13_welfare_feeding_task
+        where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+        and MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+    </select>
+    <select id="selectByStaffing" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from 2020rg_group13_welfare_feeding_task
+        where MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+        and Task != ''
+        order by LastUpdated
+        limit #{limit,jdbcType=INTEGER} offset #{offset,jdbcType=INTEGER}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(1)
+        from `2020rg_group13_welfare_feeding_task`
+        where MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+          and Task != ''
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTaskKey">
+        delete
+        from 2020rg_group13_welfare_feeding_task
+        where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+          and MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTask">
+        insert into 2020rg_group13_welfare_feeding_task (AnimalNumber, MaintenanceStaff, Task, LastUpdated)
+        values (#{animalnumber,jdbcType=VARCHAR}, #{maintenancestaff,jdbcType=CHAR}, #{task,jdbcType=VARCHAR},
+                #{lastupdated,jdbcType=DATE})
+    </insert>
+    <insert id="insertSelective" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTask">
+        insert into 2020rg_group13_welfare_feeding_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="animalnumber != null">
+                AnimalNumber,
+            </if>
+            <if test="maintenancestaff != null">
+                MaintenanceStaff,
+            </if>
+            <if test="task != null">
+                Task,
+            </if>
+            <if test="lastupdated != null">
+                LastUpdated,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="animalnumber != null">
+                #{animalnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="maintenancestaff != null">
+                #{maintenancestaff,jdbcType=CHAR},
+            </if>
+            <if test="task != null">
+                #{task,jdbcType=VARCHAR},
+            </if>
+            <if test="lastupdated != null">
+                #{lastupdated,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTask">
+        update 2020rg_group13_welfare_feeding_task
+        <set>
+            <if test="task != null">
+                Task = #{task,jdbcType=VARCHAR},
+            </if>
+            <if test="LastUpdated != null">
+                Task = #{lastupdated,jdbcType=DATE},
+            </if>
+        </set>
+        where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+        and MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.WelfareFeedingTask">
+        update 2020rg_group13_welfare_feeding_task
+        set Task = #{task,jdbcType=VARCHAR},
+            LastUpdated = #{lastupdated,jdbcType=DATE}
+        where AnimalNumber = #{animalnumber,jdbcType=VARCHAR}
+          and MaintenanceStaff = #{maintenancestaff,jdbcType=CHAR}
+    </update>
+</mapper>

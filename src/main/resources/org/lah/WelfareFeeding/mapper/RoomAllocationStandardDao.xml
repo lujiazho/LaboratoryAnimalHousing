@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.RoomAllocationStandardDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.RoomAllocationStandard">
+    <id column="RoomAllocationStandardNumber" jdbcType="CHAR" property="roomallocationstandardnumber" />
+    <result column="AnimalNumber" jdbcType="CHAR" property="animalnumber" />
+    <result column="Staffing" jdbcType="CHAR" property="staffing" />
+    <result column="LivingSpaceRequirements" jdbcType="FLOAT" property="livingspacerequirements" />
+    <result column="AdditionalAllocationRequirements" jdbcType="VARCHAR" property="additionalallocationrequirements" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RoomAllocationStandardNumber, AnimalNumber, Staffing, LivingSpaceRequirements, AdditionalAllocationRequirements
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_room_allocation_standard
+    where RoomAllocationStandardNumber = #{roomallocationstandardnumber,jdbcType=CHAR}
+  </select>
+  <select id="selectByAnimalNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_room_allocation_standard
+    where AnimalNumber = #{animalnumber,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from 2020rg_group13_room_allocation_standard
+    where RoomAllocationStandardNumber = #{roomallocationstandardnumber,jdbcType=CHAR}
+  </delete>
+  <select id="insert" resultType="java.lang.String">
+    call 2020rg_group13_p_add_room_allocation_standard(#{animalnumber,jdbcType=CHAR},#{staffing,jdbcType=CHAR}, #{livingspacerequirements,jdbcType=FLOAT},
+                                                       #{additionalallocationrequirements,jdbcType=VARCHAR})
+  </select>
+  <insert id="insertSelective" keyColumn="RoomAllocationStandardNumber" keyProperty="roomallocationstandardnumber"
+          parameterType="org.lah.WelfareFeeding.domain.RoomAllocationStandard" useGeneratedKeys="true">
+    insert into 2020rg_group13_room_allocation_standard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        AnimalNumber,
+      </if>
+      <if test="staffing != null">
+        Staffing,
+      </if>
+      <if test="livingspacerequirements != null">
+        LivingSpaceRequirements,
+      </if>
+      <if test="additionalallocationrequirements != null">
+        AdditionalAllocationRequirements,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="animalnumber != null">
+        #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="livingspacerequirements != null">
+        #{livingspacerequirements,jdbcType=FLOAT},
+      </if>
+      <if test="additionalallocationrequirements != null">
+        #{additionalallocationrequirements,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.RoomAllocationStandard">
+    update 2020rg_group13_room_allocation_standard
+    <set>
+      <if test="animalnumber != null">
+        AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      </if>
+      <if test="staffing != null">
+        Staffing = #{staffing,jdbcType=CHAR},
+      </if>
+      <if test="livingspacerequirements != null">
+        LivingSpaceRequirements = #{livingspacerequirements,jdbcType=FLOAT},
+      </if>
+      <if test="additionalallocationrequirements != null">
+        AdditionalAllocationRequirements = #{additionalallocationrequirements,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RoomAllocationStandardNumber = #{roomallocationstandardnumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.RoomAllocationStandard">
+    update 2020rg_group13_room_allocation_standard
+    set AnimalNumber = #{animalnumber,jdbcType=CHAR},
+      Staffing = #{staffing,jdbcType=CHAR},
+      LivingSpaceRequirements = #{livingspacerequirements,jdbcType=FLOAT},
+      AdditionalAllocationRequirements = #{additionalallocationrequirements,jdbcType=VARCHAR}
+    where RoomAllocationStandardNumber = #{roomallocationstandardnumber,jdbcType=CHAR}
+  </update>
+</mapper>

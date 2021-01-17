@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.AnimalMatingMapper" >
+    <!--分页查询动物配种记录表-->
+    <select id="getAnimalMating" parameterType="org.lah.AnimalBreeding.domain.AnimalMating" resultType="org.lah.AnimalBreeding.domain.AnimalMating">
+        select * from 2020rg_group13_animalmatinglnfo
+        <where>
+            <if test=" AnimalMatingNumber!=null and  AnimalMatingNumber!=0">
+                AnimalMatingNumber=#{AnimalMatingNumber}
+            </if>
+            <if test=" BoarNumber!=null and  BoarNumber!=''">
+                BoarNumber=#{BoarNumber}
+            </if>
+            <if test="SowNumber !=null and SowNumber !=''">
+                SowNumber=#{SowNumber}
+            </if>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber}
+            </if>
+            <if test="MatingStartTime!=null and MatingStartTime!=''">
+                MatingStartTime=#{MatingStartTime}
+            </if>
+        </where>
+        ORDER BY AnimalMatingNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询动物配种记录表数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalMatingNumber) from 2020rg_group13_animalmatinglnfo
+        <where>
+            <if test=" AnimalMatingNumber!=null and  AnimalMatingNumber!=0">
+                AnimalMatingNumber=#{AnimalMatingNumber}
+            </if>
+            <if test=" BoarNumber!=null and  BoarNumber!=''">
+                BoarNumber=#{BoarNumber}
+            </if>
+            <if test="SowNumber !=null and SowNumber !=''">
+                SowNumber=#{SowNumber}
+            </if>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber}
+            </if>
+            <if test="MatingStartTime!=null and MatingStartTime!=''">
+                MatingStartTime=#{MatingStartTime}
+            </if>
+        </where>
+        ORDER BY  AnimalMatingNumber asc
+    </select>
+
+    <!--通过ID删除动物配种记录表信息-->
+    <delete id="deleteAnimalMating" parameterType="Integer" >
+        delete from 2020rg_group13_animalmatinglnfo where AnimalMatingNumber=#{AnimalMatingNumber}
+    </delete>
+
+    <!--添加动物配种记录表信息-->
+    <insert id="addAnimalMating" parameterType="org.lah.AnimalBreeding.domain.AnimalMating" keyProperty="AnimalMatingNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_animalmatinglnfo (AnimalMatingNumber,BoarNumber,SowNumber, RoomNumber,MatingStartTime,MatingEndTime,Note)
+        values(#{AnimalMatingNumber},#{BoarNumber},#{SowNumber},#{RoomNumber},#{MatingStartTime},#{MatingEndTime},#{Note})
+    </insert>
+
+    <!--根据ID查询动物配种记录表信息-->
+    <select id="findAnimalMatingById"  parameterType="Integer" resultType="org.lah.AnimalBreeding.domain.AnimalMating" >
+       select * from 2020rg_group13_animalmatinglnfo where AnimalMatingNumber=#{AnimalMatingNumber}
+    </select>
+
+    <!--更新动物配种记录表信息-->
+    <update id="updateAnimalMating" parameterType="org.lah.AnimalBreeding.domain.AnimalMating">
+        update 2020rg_group13_animalmatinglnfo
+        <set>
+            <if test=" AnimalMatingNumber!=null and  AnimalMatingNumber!=0">
+                AnimalMatingNumber=#{AnimalMatingNumber},
+            </if>
+            <if test=" BoarNumber!=null and  BoarNumber!=0">
+                BoarNumber=#{BoarNumber},
+            </if>
+            <if test="SowNumber !=null and SowNumber !=0">
+                SowNumber=#{SowNumber},
+            </if>
+            <if test="RoomNumber !=null and RoomNumber !=''">
+                RoomNumber=#{RoomNumber},
+            </if>
+            <if test="MatingStartTime!=null and MatingStartTime!=''">
+                MatingStartTime=#{MatingStartTime},
+            </if>
+            <if test="MatingEndTime !=null and MatingEndTime !=''">
+                MatingEndTime=#{MatingEndTime},
+            </if>
+            <if test="Note!=null and Note!=''">
+                Note=#{Note},
+            </if>
+        </set>
+        where AnimalMatingNumber = #{AnimalMatingNumber}
+    </update>
+
+    <!--查询所有动物配种记录表信息-->
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.AnimalMating">
+        select * from 2020rg_group13_animalmatinglnfo;
+    </select>
+
+</mapper>

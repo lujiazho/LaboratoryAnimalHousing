@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.PaddingClaimMapper" >
+
+    <!--分页查询-->
+    <select id="getPaddingClaim" parameterType="org.lah.AnimalFeed.domain.PaddingClaim" resultType="org.lah.AnimalFeed.domain.PaddingClaim">
+        select * from 2020rg_group13_af_paddingclaim
+        <where>
+            <if test="PaddingGetNumber!=null and PaddingGetNumber!=0 ">
+                and  PaddingGetNumber = #{PaddingGetNumber}
+            </if>
+            <if test="PaddingType!=null and PaddingType!=''">
+                and  PaddingType = #{PaddingType}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  PaddingGetNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(PaddingGetNumber) from 2020rg_group13_af_paddingclaim
+        <where>
+              <if test="PaddingGetNumber!=null and PaddingGetNumber!=0 ">
+                 and  PaddingGetNumber = #{PaddingGetNumber}
+               </if>
+              <if test="PaddingType!=null and PaddingType!=''">
+                  and  PaddingType = #{PaddingType}
+              </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deletePaddingClaim" parameterType="Integer" >
+        delete from 2020rg_group13_af_paddingclaim where PaddingGetNumber=#{PaddingGetNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addPaddingClaim" parameterType="org.lah.AnimalFeed.domain.PaddingClaim" keyProperty="PaddingGetNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_paddingclaim (GetDate,PaddingType,PersonnelNumber,PaddingNumber,AbnormalCondition)
+        values(#{GetDate},#{PaddingType},#{PersonnelNumber},#{PaddingNumber},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findPaddingClaimById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.PaddingClaim" >
+       select * from 2020rg_group13_af_paddingclaim where PaddingGetNumber=#{PaddingGetNumber}
+    </select>
+    <!--修改学生信息-->
+    <update id="updatePaddingClaim" parameterType="org.lah.AnimalFeed.domain.PaddingClaim">
+        update 2020rg_group13_af_paddingclaim
+        <set>
+            <if test="GetDate!=null and GetDate!=''">
+                GetDate=#{GetDate},
+            </if>
+            <if test="PaddingType !=null and PaddingType !=''">
+                PaddingType=#{PaddingType},
+            </if>
+            <if test="PaddingNumber!=null and PaddingNumber!=0">
+                PaddingNumber=#{PaddingNumber},
+            </if>
+            <if test="PersonnelNumber !=null and PersonnelNumber !=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where PaddingGetNumber = #{PaddingGetNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.PaddingClaim">
+        select * from 2020rg_group13_af_paddingclaim;
+    </select>
+
+</mapper>

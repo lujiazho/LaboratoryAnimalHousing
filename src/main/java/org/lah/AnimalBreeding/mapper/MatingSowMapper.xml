@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.MatingSowMapper" >
+
+    <!--分页查询配种母猪行为记录表-->
+    <select id="getMatingSow" parameterType="org.lah.AnimalBreeding.domain.MatingSow" resultType="org.lah.AnimalBreeding.domain.MatingSow">
+        select * from 2020rg_group13_sowmatinglnfo
+        <where>
+            <if test=" ActionID!=null and  ActionID!=0">
+                ActionID=#{ActionID}
+            </if>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test="BehaviorStartTime !=null and BehaviorStartTime !=''">
+                BehaviorStartTime=#{BehaviorStartTime}
+            </if>
+        </where>
+        ORDER BY ActionID asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询配种母猪行为记录表数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(ActionID) from 2020rg_group13_sowmatinglnfo
+        <where>
+            <if test=" ActionID!=null and  ActionID!=0">
+                ActionID=#{ActionID}
+            </if>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test="BehaviorStartTime !=null and BehaviorStartTime !=''">
+                BehaviorStartTime=#{BehaviorStartTime}
+            </if>
+        </where>
+        ORDER BY  ActionID asc
+    </select>
+
+    <!--通过ID删除配种母猪行为记录表信息-->
+    <delete id="deleteMatingSow" parameterType="Integer" >
+        delete from 2020rg_group13_sowmatinglnfo where ActionID=#{ActionID}
+    </delete>
+
+    <!--添加配种母猪行为记录表信息-->
+    <insert id="addMatingSow" parameterType="org.lah.AnimalBreeding.domain.MatingSow" keyProperty="ActionID" useGeneratedKeys="true">
+        insert into 2020rg_group13_sowmatinglnfo (ActionID,AnimalNumber,BehaviorStartTime,BehaviorEndTime,BehaviorDescription,TreatmentPlan,TreatmentResult)
+        values(#{ActionID},#{AnimalNumber},#{BehaviorStartTime},#{BehaviorEndTime},#{BehaviorDescription},#{TreatmentPlan},#{TreatmentResult})
+    </insert>
+
+    <!--根据ID查询配种母猪行为记录表信息-->
+    <select id="findMatingSowById"  parameterType="Integer" resultType="org.lah.AnimalBreeding.domain.MatingSow" >
+       select * from 2020rg_group13_sowmatinglnfo where ActionID=#{ActionID}
+    </select>
+
+    <!--添加配种母猪行为记录表信息-->
+    <update id="updateMatingSow" parameterType="org.lah.AnimalBreeding.domain.MatingSow">
+        update 2020rg_group13_sowmatinglnfo
+        <set>
+            <if test=" ActionID!=null and  ActionID!=0">
+                ActionID=#{ActionID},
+            </if>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber},
+            </if>
+            <if test="BehaviorStartTime !=null and BehaviorStartTime !=''">
+                BehaviorStartTime=#{BehaviorStartTime},
+            </if>
+            <if test="BehaviorEndTime !=null and BehaviorEndTime !=''">
+                BehaviorEndTime=#{BehaviorEndTime},
+            </if>
+            <if test="BehaviorDescription!=null and BehaviorDescription!=''">
+                BehaviorDescription=#{BehaviorDescription},
+            </if>
+            <if test="TreatmentPlan !=null and TreatmentPlan !=''">
+                TreatmentPlan=#{TreatmentPlan},
+            </if>
+            <if test="TreatmentResult!=null and TreatmentResult!=''">
+                TreatmentResult=#{TreatmentResult},
+            </if>
+        </set>
+        where ActionID = #{ActionID}
+    </update>
+
+    <!--查询所有配种母猪行为记录表信息-->
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.MatingSow">
+        select * from 2020rg_group13_sowmatinglnfo;
+    </select>
+
+</mapper>

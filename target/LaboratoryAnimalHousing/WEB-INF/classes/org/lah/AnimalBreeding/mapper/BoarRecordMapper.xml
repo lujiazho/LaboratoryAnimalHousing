@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.BoarRecordMapper" >
+
+    <!--分页查询种猪档案-->
+    <select id="getBoarRecord" parameterType="org.lah.AnimalBreeding.domain.BoarRecord" resultType="org.lah.AnimalBreeding.domain.BoarRecord">
+        select * from 2020rg_group13_boarrecordlnfo
+        <where>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test=" PigAge!=null">
+                PigAge=#{PigAge}
+            </if>
+            and IfBreedSelectObserved='否'
+            and IfBreedSelect='是'
+        </where>
+        ORDER BY AnimalNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询种猪档案数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalNumber) from 2020rg_group13_boarrecordlnfo
+        <where>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test=" PigAge!=null">
+                PigAge=#{PigAge}
+            </if>
+            and IfBreedSelectObserved='否'
+            and IfBreedSelect='是'
+        </where>
+        ORDER BY  AnimalNumber asc
+    </select>
+
+    <!--根据ID查询种猪档案信息-->
+    <select id="findBoarRecordById"  parameterType="String" resultType="org.lah.AnimalBreeding.domain.BoarRecord" >
+       select * from 2020rg_group13_boarrecordlnfo where AnimalNumber=#{AnimalNumber} and IfBreedSelectObserved='否' and IfBreedSelect='是'
+    </select>
+
+    <!--修改种猪档案信息-->
+    <update id="updateBoarRecord" parameterType="org.lah.AnimalBreeding.domain.BoarRecord">
+        update 2020rg_group13_boarrecordlnfo
+        <set>
+            <if test="Fertility!=null and Fertility!=''">
+                Fertility=#{Fertility},
+            </if>
+            <if test="BreedingHistory !=null and BreedingHistory !=''">
+                BreedingHistory=#{BreedingHistory},
+            </if>
+            IfBreedSelectObserved='否',
+            IfBreedSelect='否'
+        </set>
+        where AnimalNumber = #{AnimalNumber}
+    </update>
+
+    <!--查询所有种猪档案信息-->
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.BoarRecord">
+        select * from 2020rg_group13_boarrecordlnfo and IfBreedSelectObserved='否' and IfBreedSelect='是'
+    </select>
+
+</mapper>

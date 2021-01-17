@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.FeedFeedingMapper" >
+
+    <!--分页查询-->
+    <select id="getFeedFeeding" parameterType="org.lah.AnimalFeed.domain.FeedFeeding" resultType="org.lah.AnimalFeed.domain.FeedFeeding">
+        select * from 2020rg_group13_af_feedfeeding
+        <where>
+            <if test="FeedingNumber!=null and FeedingNumber!=0 ">
+                and  FeedingNumber = #{FeedingNumber}
+            </if>
+            <if test="AnimalNumber!=null and AnimalNumber!=''">
+                and  AnimalNumber = #{AnimalNumber}
+            </if>
+            <if test="RoomNumber!=null and RoomNumber!=0 ">
+                and  RoomNumber = #{RoomNumber}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  FeedingNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(FeedingNumber) from 2020rg_group13_af_feedfeeding
+        <where>
+              <if test="FeedingNumber!=null and FeedingNumber!=0 ">
+                and  FeedingNumber = #{FeedingNumber}
+              </if>
+              <if test="AnimalNumber!=null and AnimalNumber!=''">
+                and  AnimalNumber = #{AnimalNumber}
+              </if>
+              <if test="RoomNumber!=null and RoomNumber!=0 ">
+                and  RoomNumber = #{RoomNumber}
+              </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+                </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料喂养信息-->
+    <delete id="deleteFeedFeeding" parameterType="Integer" >
+        delete from 2020rg_group13_af_feedfeeding where FeedingNumber=#{FeedingNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addFeedFeeding" parameterType="org.lah.AnimalFeed.domain.FeedFeeding" keyProperty="FeedingNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_feedfeeding (FeedDate,AnimalNumber,FeedType,RoomNumber,FeedAmount,PersonnelNumber,AbnormalCondition)
+        values(#{FeedDate},#{AnimalNumber},#{FeedType},#{RoomNumber},#{FeedAmount},#{PersonnelNumber},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findFeedFeedingById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.FeedFeeding" >
+       select * from 2020rg_group13_af_feedfeeding where FeedingNumber=#{FeedingNumber}
+    </select>
+    <!--修改信息-->
+    <update id="updateFeedFeeding" parameterType="org.lah.AnimalFeed.domain.FeedFeeding">
+        update 2020rg_group13_af_feedfeeding
+        <set>
+            <if test="FeedDate!=null and FeedDate!=''">
+                FeedDate=#{FeedDate},
+            </if>
+            <if test="AnimalNumber !=null and AnimalNumber !=''">
+                AnimalNumber=#{AnimalNumber},
+            </if>
+            <if test="FeedType !=null and FeedType !=''">
+                FeedType=#{FeedType},
+            </if>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber},
+            </if>
+            <if test="FeedAmount!=null and FeedAmount!=0">
+                FeedAmount=#{FeedAmount},
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where FeedingNumber = #{FeedingNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.FeedFeeding">
+        select * from 2020rg_group13_af_feedfeeding;
+    </select>
+
+</mapper>

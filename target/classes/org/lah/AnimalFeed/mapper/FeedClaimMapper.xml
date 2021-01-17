@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.FeedClaimMapper" >
+
+    <!--分页查询-->
+    <select id="getFeedClaim" parameterType="org.lah.AnimalFeed.domain.FeedClaim" resultType="org.lah.AnimalFeed.domain.FeedClaim">
+        select * from 2020rg_group13_af_feedclaim
+        <where>
+            <if test="FeedReceiveNumber!=null and FeedReceiveNumber!=0 ">
+                and  FeedReceiveNumber = #{FeedReceiveNumber}
+            </if>
+            <if test="GetDate!=null">
+                and  GetDate = #{GetDate}
+            </if>
+            <if test="FeedType!=null and FeedType!=''">
+                and  FeedType = #{FeedType}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  FeedReceiveNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(FeedReceiveNumber) from 2020rg_group13_af_feedclaim
+        <where>
+              <if test="FeedReceiveNumber!=null and FeedReceiveNumber!=0 ">
+                 and  FeedReceiveNumber = #{FeedReceiveNumber}
+              </if>
+                <if test="GetDate!=null">
+                and  GetDate = #{GetDate}
+              </if>
+              <if test="FeedType!=null and FeedType!=''">
+                  and  FeedType = #{FeedType}
+              </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deleteFeedClaim" parameterType="Integer" >
+        delete from 2020rg_group13_af_feedclaim where FeedReceiveNumber=#{FeedReceiveNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addFeedClaim" parameterType="org.lah.AnimalFeed.domain.FeedClaim" keyProperty="FeedReceiveNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_feedclaim (GetDate,FeedType,PersonnelNumber,FeedNumber,AbnormalCondition)
+        values(#{GetDate},#{FeedType},#{PersonnelNumber},#{FeedNumber},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findFeedClaimById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.FeedClaim" >
+       select * from 2020rg_group13_af_feedclaim where FeedReceiveNumber=#{FeedReceiveNumber}
+    </select>
+    <!--修改学生信息-->
+    <update id="updateFeedClaim" parameterType="org.lah.AnimalFeed.domain.FeedClaim">
+        update 2020rg_group13_af_feedclaim
+        <set>
+            <if test="FeedType !=null and FeedType !=''">
+                FeedType=#{FeedType},
+            </if>
+            <if test="FeedNumber!=null and FeedNumber!=0">
+                FeedNumber=#{FeedNumber},
+            </if>
+            <if test="PersonnelNumber !=null and PersonnelNumber !=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where FeedReceiveNumber = #{FeedReceiveNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.FeedClaim">
+        select * from 2020rg_group13_af_feedclaim;
+    </select>
+
+</mapper>

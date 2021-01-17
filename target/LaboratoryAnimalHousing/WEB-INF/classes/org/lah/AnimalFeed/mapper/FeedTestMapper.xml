@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.FeedTestMapper" >
+
+    <!--分页查询-->
+    <select id="getFeedTest" parameterType="org.lah.AnimalFeed.domain.FeedTest" resultType="org.lah.AnimalFeed.domain.FeedTest">
+        select * from 2020rg_group13_af_feedwatertesting
+        <where>
+            <if test="FeedWaterTestNumber!=null and FeedWaterTestNumber!=0 ">
+                and  FeedWaterTestNumber = #{FeedWaterTestNumber}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  FeedWaterTestNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(FeedWaterTestNumber) from 2020rg_group13_af_feedwatertesting
+        <where>
+              <if test="FeedWaterTestNumber!=null and FeedWaterTestNumber!=0 ">
+                 and  FeedWaterTestNumber = #{FeedWaterTestNumber}
+               </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deleteFeedTest" parameterType="Integer" >
+        delete from 2020rg_group13_af_feedwatertesting where FeedWaterTestNumber=#{FeedWaterTestNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addFeedTest" parameterType="org.lah.AnimalFeed.domain.FeedTest" keyProperty="FeedWaterTestNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_FeedWaterTesting (TestDate,FeedReceiveNumber,IfFeedStandard,PersonnelNumber,FeedAppearanceTest,FeedMyeteTest,FeedToxinTest,WaterBacterialCount,WaterColiformCount,AbnormalCondition)
+        values(#{TestDate},#{FeedReceiveNumber},#{IfFeedStandard},#{PersonnelNumber},#{FeedAppearanceTest},#{FeedMyeteTest},#{FeedToxinTest},#{WaterBacterialCount},#{WaterColiformCount},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findFeedTestById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.FeedTest" >
+       select * from 2020rg_group13_af_feedwatertesting where FeedWaterTestNumber=#{FeedWaterTestNumber}
+    </select>
+    <!--修改学生信息-->
+    <update id="updateFeedTest" parameterType="org.lah.AnimalFeed.domain.FeedTest">
+        update 2020rg_group13_af_feedwatertesting
+        <set>
+            <if test="TestDate!=null and TestDate!=''">
+                TestDate=#{TestDate},
+            </if>
+            <if test="FeedReceiveNumber!=null and FeedReceiveNumber!=0">
+                FeedReceiveNumber=#{FeedReceiveNumber},
+            </if>
+            <if test="IfFeedStandard!=null">
+                IfFeedStandard=#{IfFeedStandard},
+            </if>
+            <if test="PersonnelNumber !=null and PersonnelNumber !=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="FeedAppearanceTest!=null and FeedAppearanceTest!=''">
+                FeedAppearanceTest=#{FeedAppearanceTest},
+            </if>
+            <if test="FeedMyeteTest!=null and FeedMyeteTest!=''">
+                FeedMyeteTest=#{FeedMyeteTest},
+            </if>
+            <if test="FeedToxinTest!=null and FeedToxinTest!=''">
+                FeedToxinTest=#{FeedToxinTest},
+            </if>
+            <if test="WaterBacterialCount!=null and WaterBacterialCount!=0">
+                WaterBacterialCount=#{WaterBacterialCount},
+            </if>
+            <if test="WaterColiformCount!=null and WaterColiformCount!=0">
+                WaterColiformCount=#{WaterColiformCount},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where FeedWaterTestNumber = #{FeedWaterTestNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.FeedTest">
+        select * from 2020rg_group13_af_feedwatertesting;
+    </select>
+
+</mapper>

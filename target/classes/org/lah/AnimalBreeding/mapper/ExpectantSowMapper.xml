@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.ExpectantSowMapper" >
+
+    <!--分页查询-->
+    <select id="getExpectantSow" parameterType="org.lah.AnimalBreeding.domain.ExpectantSow" resultType="org.lah.AnimalBreeding.domain.ExpectantSow">
+        select * from 2020rg_group13_expectantsowlnfo
+        <where>
+            <if test=" ActionID!=null and  ActionID!=0">
+                ActionID=#{ActionID}
+            </if>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test="BehaviorStartTime !=null and BehaviorStartTime !=''">
+                BehaviorStartTime=#{BehaviorStartTime}
+            </if>
+        </where>
+        ORDER BY  ActionID asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(ActionID) from 2020rg_group13_expectantsowlnfo
+        <where>
+            <if test=" ActionID!=null and  ActionID!=0">
+                ActionID=#{ActionID}
+            </if>
+            <if test=" AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber}
+            </if>
+            <if test="BehaviorStartTime !=null and BehaviorStartTime !=''">
+                BehaviorStartTime=#{BehaviorStartTime}
+            </if>
+        </where>
+        ORDER BY  ActionID asc
+    </select>
+
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deleteExpectantSow" parameterType="Integer" >
+        delete from 2020rg_group13_expectantsowlnfo where ActionID=#{ActionID}
+    </delete>
+
+    <!--添加信息-->
+    <insert id="addExpectantSow" parameterType="org.lah.AnimalBreeding.domain.ExpectantSow" keyProperty="ActionID" useGeneratedKeys="true">
+        insert into 2020rg_group13_expectantsowlnfo (ActionID,AnimalNumber,BehaviorStartTime,BehaviorEndTime,BehaviorDescription,TreatmentPlan,TreatmentResult)
+        values(#{ActionID},#{AnimalNumber},#{BehaviorStartTime},#{BehaviorEndTime},#{BehaviorDescription},#{TreatmentPlan},#{TreatmentResult})
+    </insert>
+
+    <select id="findExpectantSowByAI"  parameterType="Integer" resultType="org.lah.AnimalBreeding.domain.ExpectantSow" >
+        select * from 2020rg_group13_expectantsowlnfo where ActionID=#{ActionID}
+    </select>
+
+    <!--修改学生信息-->
+    <update id="updateExpectantSow" parameterType="org.lah.AnimalBreeding.domain.ExpectantSow">
+        update 2020rg_group13_expectantsowlnfo
+        <set>
+            <if test="ActionID !=null and ActionID !=0">
+                ActionID=#{ActionID},
+            </if>
+            <if test="AnimalNumber !=null and AnimalNumber !=''">
+                AnimalNumber=#{AnimalNumber},
+            </if>
+            BehaviorStartTime=#{BehaviorStartTime},
+            BehaviorEndTime=#{BehaviorEndTime},
+            <if test="BehaviorDescription !=null and BehaviorDescription !=''">
+                BehaviorDescription=#{BehaviorDescription},
+            </if>
+            <if test="TreatmentPlan !=null and TreatmentPlan !=0">
+                TreatmentPlan=#{TreatmentPlan},
+            </if>
+
+            <if test="TreatmentResult !=null and TreatmentResult !=''">
+                TreatmentResult=#{TreatmentResult},
+            </if>
+        </set>
+        where ActionID = #{ActionID}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.ExpectantSow">
+        select * from 2020rg_group13_expectantsowlnfo;
+    </select>
+
+</mapper>

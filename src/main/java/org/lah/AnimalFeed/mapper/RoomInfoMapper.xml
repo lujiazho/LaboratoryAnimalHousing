@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.RoomInfoMapper" >
+
+    <!--分页查询-->
+    <select id="getRoomInfo" parameterType="org.lah.AnimalFeed.domain.RoomInfo" resultType="org.lah.AnimalFeed.domain.RoomInfo">
+        select * from 2020rg_group13_af_roominfo
+        <where>
+            <if test="RoomNumber!=null and RoomNumber!=0">
+                and  RoomNumber = #{RoomNumber}
+            </if>
+            <if test="RoomType!=null and RoomType!='' ">
+                and  RoomType = #{RoomType}
+            </if>
+        </where>
+        ORDER BY  RoomNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(RoomNumber) from 2020rg_group13_af_roominfo
+        <where>
+              <if test="RoomNumber!=null and RoomNumber!=0">
+                 and  RoomNumber = #{RoomNumber}
+               </if>
+              <if test="RoomType!=null and RoomType!='' ">
+                and  RoomType = #{RoomType}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除信息-->
+    <delete id="deleteRoomInfo" parameterType="Integer" >
+        delete from 2020rg_group13_af_roominfo where RoomNumber=#{RoomNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addRoomInfo" parameterType="org.lah.AnimalFeed.domain.RoomInfo" keyProperty="RoomNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_roominfo (RoomNumber,RoomType,AccommodateNumber,AccommodatedNumber,RoomAnomaly)
+        values(#{RoomNumber},#{RoomType},#{AccommodateNumber},#{AccommodatedNumber},#{RoomAnomaly})
+    </insert>
+
+
+    <select id="findRoomInfoById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.RoomInfo" >
+       select * from 2020rg_group13_af_roominfo where RoomNumber=#{RoomNumber}
+    </select>
+    <!--修改信息-->
+    <update id="updateRoomInfo" parameterType="org.lah.AnimalFeed.domain.RoomInfo">
+        update 2020rg_group13_af_roominfo
+        <set>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber},
+            </if>
+            <if test="RoomType !=null and RoomType !=''">
+                RoomType=#{RoomType},
+            </if>
+            <if test="AccommodateNumber!=null and AccommodateNumber!=0">
+                AccommodateNumber=#{AccommodateNumber},
+            </if>
+            <if test="AccommodatedNumber !=null and AccommodatedNumber !=0">
+                AccommodatedNumber=#{AccommodatedNumber},
+            </if>
+            <if test="RoomAnomaly !=null and RoomAnomaly !=''">
+                RoomAnomaly=#{RoomAnomaly},
+            </if>
+        </set>
+        where RoomNumber = #{RoomNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.RoomInfo">
+        select * from 2020rg_group13_af_roominfo;
+    </select>
+
+</mapper>

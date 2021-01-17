@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.AnimalBreedMapper" >
+
+    <!--分页查询-->
+    <select id="getAnimalBreed" parameterType="org.lah.AnimalBreeding.domain.AnimalBreed" resultType="org.lah.AnimalBreeding.domain.AnimalBreed">
+        select * from 2020rg_group13_animalbreed
+        <where>
+            <if test="RecordDate!=null and RecordDate!='' ">
+                and  RecordDate = #{RecordDate}
+            </if>
+            <if test="AnimalMatingNumber!=null and AnimalMatingNumber!=0 ">
+                and  AnimalMatingNumber = #{AnimalMatingNumber}
+            </if>
+            <if test="SowsNumber!=null and SowsNumber!='' ">
+                and  SowsNumber = #{SowsNumber}
+            </if>
+            <if test="SowsSituation!=null and SowsSituation!='' ">
+                and  SowsSituation = #{SowsSituation}
+            </if>
+            <if test="BoarsNumber!=null and BoarsNumber!='' ">
+                and  BoarsNumber = #{BoarsNumber}
+            </if>
+            <if test="BoarsSituation!=null and BoarsSituation!='' ">
+                and  BoarsSituation = #{BoarsSituation}
+            </if>
+        </where>
+        ORDER BY  AnimalMatingNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalMatingNumber) from 2020rg_group13_animalbreed
+        <where>
+            <if test="AnimalMatingNumber!=null and AnimalMatingNumber!=0 ">
+                and  AnimalMatingNumber = #{AnimalMatingNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deleteAnimalBreed" parameterType="Integer" >
+        delete from 2020rg_group13_animalbreed where AnimalMatingNumber=#{AnimalMatingNumber}
+    </delete>
+
+    <!--添加信息-->
+    <insert id="addAnimalBreed" parameterType="org.lah.AnimalBreeding.domain.AnimalBreed" keyProperty="AnimalMatingNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_animalbreed (RecordDate,AnimalMatingNumber,SowsNumber,SowsSituation,BoarsNumber,BoarsSituation)
+        values(#{RecordDate},#{AnimalMatingNumber},#{SowsNumber},#{SowsSituation},#{BoarsNumber},#{BoarsSituation})
+    </insert>
+
+    <select id="findAnimalBreedByAN"  parameterType="Integer" resultType="org.lah.AnimalBreeding.domain.AnimalBreed" >
+        select * from 2020rg_group13_animalbreed where AnimalMatingNumber=#{AnimalMatingNumber}
+    </select>
+
+    <!--修改学生信息-->
+    <update id="updateAnimalBreed" parameterType="org.lah.AnimalBreeding.domain.AnimalBreed">
+        update 2020rg_group13_animalbreed
+        <set>
+            <if test="RecordDate!=null and  RecordDate!=''">
+                RecordDate=#{RecordDate},
+            </if>
+            <if test="AnimalMatingNumber !=null and AnimalMatingNumber !=0">
+                AnimalMatingNumber=#{AnimalMatingNumber},
+            </if>
+            <if test="SowsNumber !=null and SowsNumber !=''">
+                SowsNumber=#{SowsNumber},
+            </if>
+
+                SowsSituation=#{SowsSituation},
+
+            <if test="BoarsNumber !=null and BoarsNumber !=0">
+                BoarsNumber=#{BoarsNumber},
+            </if>
+            <if test="BoarsSituation !=null and BoarsSituation !=''">
+                BoarsSituation=#{BoarsSituation},
+            </if>
+        </set>
+        where AnimalMatingNumber = #{AnimalMatingNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.AnimalBreed">
+        select * from 2020rg_group13_animalbreed;
+    </select>
+
+</mapper>

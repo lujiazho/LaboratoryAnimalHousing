@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lah.WelfareFeeding.mapper.AnimalFeedFormulaDao">
+  <resultMap id="BaseResultMap" type="org.lah.WelfareFeeding.domain.AnimalFeedFormula">
+    <id column="FeedNumber" jdbcType="CHAR" property="feednumber" />
+    <result column="Ingredients" jdbcType="VARCHAR" property="ingredients" />
+    <result column="FeedType" jdbcType="CHAR" property="feedtype" />
+    <result column="PreservationConditions" jdbcType="VARCHAR" property="preservationconditions" />
+    <result column="QualityGuaranteePeriod" jdbcType="FLOAT" property="qualityguaranteeperiod" />
+    <result column="Instructions" jdbcType="VARCHAR" property="instructions" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    FeedNumber, Ingredients, FeedType, PreservationConditions, QualityGuaranteePeriod, 
+    Instructions
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 2020rg_group13_animal_feed_formula
+    where FeedNumber = #{feednumber,jdbcType=CHAR}
+  </select>
+  <select id="selectOrderByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from 2020rg_group13_animal_feed_formula
+    order by FeedNumber
+    limit #{limit,jdbcType=INTEGER} offset #{offset,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete
+    from 2020rg_group13_animal_feed_formula
+    where FeedNumber = #{feednumber,jdbcType=CHAR}
+  </delete>
+  <select id="insert" resultType="java.lang.String">
+    call `2020rg_group13_p_add_animal_feed_formula`(#{ingredients,jdbcType=VARCHAR}, #{feedtype,jdbcType=CHAR},
+                                                    #{preservationconditions,jdbcType=VARCHAR},
+                                                    #{qualityguaranteeperiod,jdbcType=FLOAT},
+                                                    #{instructions,jdbcType=VARCHAR})
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select COUNT(1)
+    from `2020rg_group13_animal_feed_formula`
+  </select>
+  <insert id="insertSelective" keyColumn="FeedNumber" keyProperty="feednumber"
+          parameterType="org.lah.WelfareFeeding.domain.AnimalFeedFormula" useGeneratedKeys="true">
+    insert into 2020rg_group13_animal_feed_formula
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ingredients != null">
+        Ingredients,
+      </if>
+      <if test="feedtype != null">
+        FeedType,
+      </if>
+      <if test="preservationconditions != null">
+        PreservationConditions,
+      </if>
+      <if test="qualityguaranteeperiod != null">
+        QualityGuaranteePeriod,
+      </if>
+      <if test="instructions != null">
+        Instructions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ingredients != null">
+        #{ingredients,jdbcType=VARCHAR},
+      </if>
+      <if test="feedtype != null">
+        #{feedtype,jdbcType=CHAR},
+      </if>
+      <if test="preservationconditions != null">
+        #{preservationconditions,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityguaranteeperiod != null">
+        #{qualityguaranteeperiod,jdbcType=FLOAT},
+      </if>
+      <if test="instructions != null">
+        #{instructions,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lah.WelfareFeeding.domain.AnimalFeedFormula">
+    update 2020rg_group13_animal_feed_formula
+    <set>
+      <if test="ingredients != null">
+        Ingredients = #{ingredients,jdbcType=VARCHAR},
+      </if>
+      <if test="feedtype != null">
+        FeedType = #{feedtype,jdbcType=CHAR},
+      </if>
+      <if test="preservationconditions != null">
+        PreservationConditions = #{preservationconditions,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityguaranteeperiod != null">
+        QualityGuaranteePeriod = #{qualityguaranteeperiod,jdbcType=FLOAT},
+      </if>
+      <if test="instructions != null">
+        Instructions = #{instructions,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FeedNumber = #{feednumber,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lah.WelfareFeeding.domain.AnimalFeedFormula">
+    update 2020rg_group13_animal_feed_formula
+    set Ingredients = #{ingredients,jdbcType=VARCHAR},
+      FeedType = #{feedtype,jdbcType=CHAR},
+      PreservationConditions = #{preservationconditions,jdbcType=VARCHAR},
+      QualityGuaranteePeriod = #{qualityguaranteeperiod,jdbcType=FLOAT},
+      Instructions = #{instructions,jdbcType=VARCHAR}
+    where FeedNumber = #{feednumber,jdbcType=CHAR}
+  </update>
+</mapper>

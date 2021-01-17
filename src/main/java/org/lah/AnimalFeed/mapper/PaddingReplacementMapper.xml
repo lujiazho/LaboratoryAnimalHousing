@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalFeed.mapper.PaddingReplacementMapper" >
+
+    <!--分页查询-->
+    <select id="getPaddingReplacement" parameterType="org.lah.AnimalFeed.domain.PaddingReplacement" resultType="org.lah.AnimalFeed.domain.PaddingReplacement">
+        select * from 2020rg_group13_af_paddingreplacement
+        <where>
+            <if test="PaddingReplacementNumber!=null and PaddingReplacementNumber!=0 ">
+                and  PaddingReplacementNumber = #{PaddingReplacementNumber}
+            </if>
+            <if test="RoomNumber!=null and RoomNumber!=0">
+                and  RoomNumber = #{RoomNumber}
+            </if>
+            <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+            </if>
+        </where>
+        ORDER BY  PaddingReplacementNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(PaddingReplacementNumber) from 2020rg_group13_af_paddingreplacement
+        <where>
+              <if test="PaddingReplacementNumber!=null and PaddingReplacementNumber!=0 ">
+                 and  PaddingReplacementNumber = #{PaddingReplacementNumber}
+               </if>
+              <if test="RoomNumber!=null and RoomNumber!=0">
+                  and  RoomNumber = #{RoomNumber}
+              </if>
+              <if test="PersonnelNumber!=null and PersonnelNumber!='' ">
+                and  PersonnelNumber = #{PersonnelNumber}
+              </if>
+          </where>
+    </select>
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deletePaddingReplacement" parameterType="Integer" >
+        delete from 2020rg_group13_af_paddingreplacement where PaddingReplacementNumber=#{PaddingReplacementNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addPaddingReplacement" parameterType="org.lah.AnimalFeed.domain.PaddingReplacement" keyProperty="PaddingReplacementNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_af_paddingreplacement (ReplacementDate,RoomNumber,PersonnelNumber,PaddingAmount,AbnormalCondition)
+        values(#{ReplacementDate},#{RoomNumber},#{PersonnelNumber},#{PaddingAmount},#{AbnormalCondition})
+    </insert>
+
+
+    <select id="findPaddingReplacementById"  parameterType="Integer" resultType="org.lah.AnimalFeed.domain.PaddingReplacement" >
+       select * from 2020rg_group13_af_paddingreplacement where PaddingReplacementNumber=#{PaddingReplacementNumber}
+    </select>
+    <!--修改学生信息-->
+    <update id="updatePaddingReplacement" parameterType="org.lah.AnimalFeed.domain.PaddingReplacement">
+        update 2020rg_group13_af_paddingreplacement
+        <set>
+            <if test="ReplacementDate!=null and ReplacementDate!=''">
+                ReplacementDate=#{ReplacementDate},
+            </if>
+            <if test="RoomNumber !=null and RoomNumber !=0">
+                RoomNumber=#{RoomNumber},
+            </if>
+            <if test="PaddingAmount!=null and PaddingAmount!=0">
+                PaddingAmount=#{PaddingAmount},
+            </if>
+            <if test="PersonnelNumber !=null and PersonnelNumber !=''">
+                PersonnelNumber=#{PersonnelNumber},
+            </if>
+            <if test="AbnormalCondition!=null and AbnormalCondition!=''">
+                AbnormalCondition=#{AbnormalCondition},
+            </if>
+        </set>
+        where PaddingReplacementNumber = #{PaddingReplacementNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalFeed.domain.PaddingReplacement">
+        select * from 2020rg_group13_af_paddingreplacement;
+    </select>
+
+</mapper>

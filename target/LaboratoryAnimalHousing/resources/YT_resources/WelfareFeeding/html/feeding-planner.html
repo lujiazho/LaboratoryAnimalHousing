@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>福利喂养系统</title>
+    <link rel="stylesheet" href="./../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./../css/feeding-planner.css" media="all">
+</head>
+<body>
+<div class="container"></div>
+<div class="main layui-col-md-offset1 layui-col-md10">
+    <div class="layui-col-space20 layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-tab layui-tab-brief" lay-filter="tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" lay-id="animal-info">动物饲养情况</li>
+                    <li lay-id="task">暂存列表</li>
+                    <li lay-id="feeding-plan">制定饲养方案</li>
+                    <li lay-id="feed-formula">添加饲料配方</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table id="animal-info-datatable" lay-filter="animal-info-datatable"></table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table id="task-datatable" lay-filter="task-datatable"></table>
+                    </div>
+                    <div class="layui-tab-item" id="feeding-plan-form-container">
+                    </div>
+                    <div class="layui-tab-item" id="feed-formula-form-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card-header">动物详细信息</div>
+            <div id="animal-details" class="layui-card-body">
+                请点击左侧表项查看详细信息
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./../layui/layui.all.js"></script>
+<script type="module" src="../js/page/feeding-planner.js"></script>
+</body>
+</html>

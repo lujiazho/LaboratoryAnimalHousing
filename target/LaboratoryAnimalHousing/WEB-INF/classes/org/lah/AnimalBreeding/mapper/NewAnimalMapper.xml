@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lah.AnimalBreeding.mapper.NewAnimalMapper" >
+
+    <!--分页查询-->
+    <select id="getNewAnimal" parameterType="org.lah.AnimalBreeding.domain.NewAnimal" resultType="org.lah.AnimalBreeding.domain.NewAnimal">
+        select * from 2020rg_group13_newanimal
+        <where>
+            <if test="AnimalNumber!=null and AnimalNumber!='' ">
+                and  AnimalNumber = #{AnimalNumber}
+            </if>
+            <if test="SowNumber!=null and SowNumber!='' ">
+                and  SowNumber = #{SowNumber}
+            </if>
+            <if test="AnimalSex!=null and AnimalSex!='' ">
+                and  AnimalSex = #{AnimalSex}
+            </if>
+        </where>
+        ORDER BY  AnimalNumber asc
+        limit #{currentPage},#{pageSize}
+    </select>
+
+    <!--查询数据总数-->
+    <select id="totalCount"  resultType="Integer">
+        select count(AnimalNumber) from 2020rg_group13_newanimal
+        <where>
+            <if test="AnimalNumber!=null and AnimalNumber!='' ">
+                and  AnimalNumber = #{AnimalNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--通过编号删除饲料领取信息-->
+    <delete id="deleteNewAnimal" parameterType="String" >
+        delete from 2020rg_group13_newanimal where AnimalNumber=#{AnimalNumber}
+    </delete>
+    <!--添加信息-->
+    <insert id="addNewAnimal" parameterType="org.lah.AnimalBreeding.domain.NewAnimal" keyProperty="AnimalNumber" useGeneratedKeys="true">
+        insert into 2020rg_group13_newanimal (AnimalNumber,RecordDate,AnimalSex,IncineratorPerson,BroodChamber,SowNumber,HealthCondition)
+        values(#{AnimalNumber},#{RecordDate},#{AnimalSex},#{IncineratorPerson},#{BroodChamber},#{SowNumber},#{HealthCondition})
+    </insert>
+
+    <select id="findNewAnimalByAN"  parameterType="String" resultType="org.lah.AnimalBreeding.domain.NewAnimal" >
+        select * from 2020rg_group13_newanimal where AnimalNumber=#{AnimalNumber}
+    </select>
+
+    <!--修改学生信息-->
+    <update id="updateNewAnimal" parameterType="org.lah.AnimalBreeding.domain.NewAnimal">
+        update 2020rg_group13_newanimal
+        <set>
+            <if test="AnimalNumber!=null and  AnimalNumber!=''">
+                AnimalNumber=#{AnimalNumber},
+            </if>
+
+            RecordDate=#{RecordDate},
+
+            <if test="AnimalSex !=null and AnimalSex !=''">
+                AnimalSex=#{AnimalSex},
+            </if>
+
+            IncineratorPerson=#{IncineratorPerson},
+
+            <if test="BroodChamber !=null and BroodChamber !=0">
+                BroodChamber=#{BroodChamber},
+            </if>
+            <if test="SowNumber !=null and SowNumber !=''">
+                SowNumber=#{SowNumber},
+            </if>
+            <if test="SowNumber !=null and SowNumber !=''">
+                HealthCondition=#{HealthCondition},
+            </if>
+        </set>
+        where AnimalNumber = #{AnimalNumber}
+    </update>
+
+    <select id="getAll" resultType="org.lah.AnimalBreeding.domain.NewAnimal">
+        select * from 2020rg_group13_newanimal;
+    </select>
+
+</mapper>

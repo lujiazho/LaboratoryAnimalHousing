@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>动物生活保障系统</title>
+    <link rel="stylesheet" href="./../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./../css/feeding-planner.css" media="all">
+</head>
+<body>
+<div class="container"></div>
+<div class="main layui-col-md-offset1 layui-col-md10">
+    <div class="layui-col-space20 layui-row">
+        <div class="layui-col-md6">
+            <div class="layui-tab layui-tab-brief" lay-filter="tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" lay-id="animal-info">动物情况</li>
+                    <li lay-id="task">暂存列表</li>
+                    <li lay-id="environmental-standard">环境标准</li>
+                    <li lay-id="room-allocation-standard">房间分配标准</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <table id="animal-info-datatable" lay-filter="animal-info-datatable"></table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table id="task-datatable" lay-filter="task-datatable"></table>
+                    </div>
+                    <div class="layui-tab-item" id="environmental-standard-form-container">
+                    </div>
+                    <div class="layui-tab-item" id="room-allocation-standard-form-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card-header">动物详细信息</div>
+            <div id="animal-details" class="layui-card-body">
+                请点击左侧表项查看详细信息
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./../layui/layui.all.js"></script>
+<script type="module" src="../js/page/security-officer.js"></script>
+</body>
+</html>
