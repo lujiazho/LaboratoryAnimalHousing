@@ -22,4 +22,12 @@ To run this project, we first need to install several required software, includi
 Make sure the prerequisites have been satisfied. The detailed process is provided as an [example tutorial]().
 
 ## Showcase
-Unfinished
+Below are a few screenshots of logistics management system, which is part of the whole project and developed by author (ZLJ).
+
+|Interface Ⅰ|Appearance|Interface Ⅱ|Appearance
+|---|---|---|---
+|<p align="center">Login</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/Login.png" width="100%">|<p align="center">Main Interface</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/main_interface.png" width="100%" alt="" align=center />
+|<p align="center">Tab</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/tab.png" width="100%">|<p align="center">Paging</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/paging.png" width="100%" alt="" align=center />
+|<p align="center">Maintaining Interface</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/maintaining.png" width="100%">|<p align="center">Search</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/search_by_date.png" width="100%" alt="" align=center />
+|<p align="center">Insert</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/insert.png" height="30%" width="100%">|<p align="center">Cascade Query</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/cascade%20query.png" width="100%" alt="" align=center />
+|<p align="center">Excel Export</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/excel_export.png" width="100%">|<p align="center">404</p>|<img src="https://github.com/leaving-voider/LaboratoryAnimalHousing/blob/main/screenshots/404.png" width="100%" alt="" align=center />
